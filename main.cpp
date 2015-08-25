@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     */
 
     TalkBack talkBack(manager, 3092, "WDE49XOAQE08C604");
-    talkBack.addCommand("OPEN");
+    talkBack.addCommand("LED_1_ON");
 
     return app.exec();
 }
