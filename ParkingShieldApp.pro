@@ -4,8 +4,10 @@ QT += qml quick
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    channel.cpp \
-    apimanager.cpp
+    TalkBack.cpp \
+    Channel.cpp \
+    ApiManager.cpp \
+    ApiCommon.cpp
 
 RESOURCES += qml.qrc
 
@@ -16,6 +18,8 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    channel.h \
-    apimanager.h
+    TalkBack.h \
+    Channel.h \
+    ApiManager.h \
+    ApiCommon.h
 

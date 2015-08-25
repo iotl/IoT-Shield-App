@@ -11,13 +11,15 @@ namespace ThingSpeak {
 class ApiManager
 {
 public:
-    static const QUrl API_URL_DEFAULT;
+
+    /// The default base URL, e.g. https://api.thingspeak.com
+    static const QUrl apiUrlDefault;
 
     /**
      * @brief A manager to handle ThinSpeak API request.
      * @param apiUrl The base URL to send requests to
      */
-    ApiManager(const QUrl &apiUrl = API_URL_DEFAULT);
+    ApiManager(const QUrl &apiUrl = apiUrlDefault);
 
     /**
      * @brief Synchronously sends a HTTP post request.

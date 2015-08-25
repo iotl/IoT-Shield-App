@@ -1,4 +1,4 @@
-#include "apimanager.h"
+#include "ApiManager.h"
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
 #include <QEventLoop>
@@ -6,7 +6,7 @@
 
 using namespace ThingSpeak;
 
-const QUrl ApiManager::API_URL_DEFAULT = QUrl("https://api.thingspeak.com");
+const QUrl ApiManager::apiUrlDefault = QUrl("https://api.thingspeak.com");
 
 ApiManager::ApiManager(const QUrl &apiUrl) : apiUrl(apiUrl)
 { }

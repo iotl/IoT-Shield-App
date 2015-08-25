@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <channel.h>
+
+#include "Channel.h"
+#include "TalkBack.h"
 
 using namespace ThingSpeak;
 
@@ -11,11 +13,16 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-    ApiManager mgr(ApiManager::API_URL_DEFAULT);
+    ApiManager manager(ApiManager::apiUrlDefault);
 
-    Channel channel(mgr, "SSZQ72F4VTZW43YS");
+    /*
+    Channel channel(manager, "SSZQ72F4VTZW43YS");
     channel.postField(1, "42");
     channel.postField(1, "43");
+    */
+
+    TalkBack talkBack(manager, 3092, "WDE49XOAQE08C604");
+    talkBack.addCommand("OPEN");
 
     return app.exec();
 }
