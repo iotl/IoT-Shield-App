@@ -8,10 +8,8 @@
 using namespace std;
 using namespace ThingSpeak;
 
-Channel::Channel(ApiManager &manager, tsid_t id) : id(id), manager(manager)
-{
-
-}
+Channel::Channel(ApiManager &manager) : manager(manager)
+{ }
 
 bool Channel::checkFieldId(unsigned int fieldId) const
 {
@@ -67,6 +65,16 @@ void Channel::setWriteApiKey(const QString &value)
 void Channel::setReadApiKey(const QString &value)
 {
     readApiKey = value;
+}
+
+tsid_t Channel::getId() const
+{
+    return id;
+}
+
+void Channel::setId(const tsid_t &value)
+{
+    id = value;
 }
 
 

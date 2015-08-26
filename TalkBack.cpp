@@ -7,9 +7,8 @@
 using namespace std;
 using namespace ThingSpeak;
 
-TalkBack::TalkBack(ApiManager &manager, tsid_t id, const QString &apiKey): manager(manager), id(id), apiKey(apiKey)
-{
-}
+TalkBack::TalkBack(ApiManager &manager): manager(manager)
+{ }
 
 tsid_t TalkBack::addCommand(const QString &commandString, quint64 position)
 {
@@ -42,5 +41,20 @@ QString TalkBack::executeNextCommand()
     unique_ptr<QNetworkReply> reply (manager.sendGetRequestSync(path, query));
 
     return parseReplyForString(reply.get());
+}
+
+void TalkBack::setId(const tsid_t &value)
+{
+    id = value;
+}
+
+void TalkBack::setApiKey(const QString &value)
+{
+    apiKey = value;
+}
+
+tsid_t TalkBack::getId() const
+{
+    return id;
 }
 

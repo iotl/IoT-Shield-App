@@ -14,9 +14,8 @@ public:
     /**
      * @brief Channel representation of an ThingSpeak Channel.
      * @param manager The ApiManager that handles network requests.
-     * @param id The channel id.
      */
-    Channel(ApiManager &manager, tsid_t id);
+    Channel(ApiManager &manager);
 
     /**
      * @brief Adds a new value to the Channel's field feed.
@@ -47,11 +46,23 @@ public:
      */
     void setReadApiKey(const QString &readApiKey);
 
+    /**
+     * @brief getId The channel id, important for queries.
+     * @return Returns the channel id.
+     */
+    tsid_t getId() const;
+
+    /**
+     * @brief Sets the channel id. Must be set for queries like getLastFieldFeedEntry() etc.
+     * @param value The channel id.
+     */
+    void setId(const tsid_t &value);
+
 private:
     tsid_t id;
-    ApiManager &manager;
-    QString writeApiKey;
     QString readApiKey;
+    QString writeApiKey;
+    ApiManager &manager;
 
     /// Checks if the field id is within the accepted range.
     bool checkFieldId(unsigned int fieldId) const;
