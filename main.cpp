@@ -29,16 +29,16 @@ int main(int argc, char *argv[])
     qDebug() << QString("Last field feed entry : %1").arg(str);
 
     // Talkback
-    TalkBack talkBack(manager);
-    talkBack.setId(3092);
-    talkBack.setApiKey("WDE49XOAQE08C604");
+    // TalkBack talkBack(manager);
+    // talkBack.setId(3092);
+    // talkBack.setApiKey("WDE49XOAQE08C604");
 
     // Add new TalkBack command
-    talkBack.addCommand("LED_1_ON");
+    // talkBack.addCommand("LED_1_ON");
 
     // Execute talkback command
-    str = talkBack.executeNextCommand();
-    qDebug() << "Execute command : " << str;
+    // str = talkBack.executeNextCommand();
+    // qDebug() << "Execute command : " << str;
 
     return app.exec();
 }

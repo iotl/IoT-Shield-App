@@ -38,6 +38,8 @@ public:
      */
     QNetworkReply* sendGetRequestSync(const QString &path, const QUrlQuery &query);
 
+    void sendGetRequestAsync(const QString &path, const QUrlQuery &query, const std::function <void (QNetworkReply*)> &f);
+
     /**
      * @brief The time in seconds to wait between two API requests.
      * return The wait time in seconds.
@@ -54,14 +56,14 @@ private:
     /// Base URL of the API requests. Query paths gets added
     QUrl apiUrl;
 
-    /// Network manager to handle requests.
-    QNetworkAccessManager mgr;
-
     /// EventLoop to synchronize network requests
     QEventLoop syncEventLoop;
 
     /// Last api access time
     QDateTime lastRequest;
+
+    /// Network access manager
+    QNetworkAccessManager manager;
 
     /// Timeout between two API queries
     unsigned int timeBetweenRequestsSec = 15;

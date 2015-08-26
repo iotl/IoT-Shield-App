@@ -53,7 +53,6 @@ QString Channel::getLastFieldFeedEntry(unsigned int fieldId)
 
     // Send request and parse the reply
     unique_ptr<QNetworkReply> reply(manager.sendGetRequestSync(path, query));
-
     return parseReplyForString(reply.get());
 }
 

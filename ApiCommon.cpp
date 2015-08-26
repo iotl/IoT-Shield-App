@@ -4,6 +4,8 @@
 quint64 ThingSpeak::parseReplyForID(QNetworkReply *reply)
 {
     unsigned int retVal;
+    if (!reply)
+        return kInvalidId;
 
     if (reply->error() == QNetworkReply::NoError) {
         QString retString = QString(reply->readAll());
@@ -13,7 +15,7 @@ quint64 ThingSpeak::parseReplyForID(QNetworkReply *reply)
 
     else  {
         qDebug() << "HTTP request failure : " << reply->errorString();
-        retVal = 0;
+        retVal = kInvalidId;
     }
 
     return retVal;
@@ -23,6 +25,9 @@ quint64 ThingSpeak::parseReplyForID(QNetworkReply *reply)
 QString ThingSpeak::parseReplyForString(QNetworkReply *reply)
 {
     QString retString;
+    if (!reply)
+        return retString;
+
     if (reply->error() == QNetworkReply::NoError) {
         retString = QString(reply->readAll());
         qDebug() << "HTTP request success : " << retString;

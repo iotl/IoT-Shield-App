@@ -3,6 +3,7 @@
 #include <QNetworkAccessManager>
 #include <QEventLoop>
 #include <QThread>
+#include <future>
 
 using namespace ThingSpeak;
 
@@ -61,9 +62,8 @@ QNetworkReply* ApiManager::sendPostRequestSync(const QString &path, const QUrlQu
     // Perform request and wait for completion
     // Create an event loop to synchronize http request
     QEventLoop syncEventLoop;
-    QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &syncEventLoop, SLOT(quit()));
-
-    QNetworkReply *reply = mgr.post(request, query.toString(QUrl::FullyEncoded).toUtf8());
+    QObject::connect(&manager, SIGNAL(finished(QNetworkReply*)), &syncEventLoop, SLOT(quit()));
+    QNetworkReply *reply = manager.post(request, query.toString(QUrl::FullyEncoded).toUtf8());
 
     // Wait for completion
     syncEventLoop.exec();
@@ -87,13 +87,38 @@ QNetworkReply* ApiManager::sendGetRequestSync(const QString &path, const QUrlQue
     // Perform request and wait for completion
     // Connect the network manager's finish() signal in order to synchronize http requests
     QEventLoop syncEventLoop;
-    QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &syncEventLoop, SLOT(quit()));
+    QObject::connect(&manager, SIGNAL(finished(QNetworkReply*)), &syncEventLoop, SLOT(quit()));
 
-    QNetworkReply *reply = mgr.get(request);
+    QNetworkReply *reply = manager.get(request);
 
     // Wait for completion
     syncEventLoop.exec();
+
     return reply;
+}
+
+void ApiManager::sendGetRequestAsync(const QString &path, const QUrlQuery &query, const std::function <void (QNetworkReply*)> &callback)
+{
+    std::async(std::launch::async, [&](){
+        // Build the url.
+        QUrl url = buildRequestUrl(path);
+        url.setQuery(query);
+
+        // Create request
+        QNetworkRequest request(url);
+        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+
+        // Wait until we can issue the next request
+        waitForTimeout();
+        lastRequest = QDateTime(QDateTime::currentDateTime());
+
+        qDebug() << "Here";
+
+        // Perform request and wait for completion
+        // Connect the network manager's finish() signal in order to synchronize http requests
+        QObject::connect(&manager, &QNetworkAccessManager::finished, callback);
+        manager.get(request);
+    });
 }
 
 unsigned int ApiManager::getTimeBetweenRequestsSec() const
