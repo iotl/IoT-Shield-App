@@ -12,24 +12,46 @@ class Channel
 {
 public:
     /**
-     * @brief Creates a channel representation
-     * @param manager The ApiManager that handles the requests.
-     * @param apiKey The unique API key of the channel.
+     * @brief Channel representation of an ThingSpeak Channel.
+     * @param manager The ApiManager that handles network requests.
+     * @param id The channel id.
      */
-    Channel(ApiManager &manager, QString apiKey);
+    Channel(ApiManager &manager, tsid_t id);
 
     /**
-     * @brief Send a HTTP post request to the api with the given field value.
+     * @brief Adds a new value to the Channel's field feed.
      * @param fieldNumber The number of the field.
-     * @param val The value string of the vield.
+     * @param val The value string of the field.
      * @return Returns the field id of the request or 0 if an error occured.
      */
-    tsid_t postField(unsigned int fieldNumber, const QString &value);
+    tsid_t updateChannelFieldFeed(unsigned int fieldNumber, const QString &value);
+
+    /**
+     * @brief Get the last entry in a Field Feed.
+     * @note Read API key is required for private channels. @see setReadApiKey();
+     * @param fieldNumber The number of the field.
+     * @param val The value string of the field.
+     * @return Returns the field id of the request or 0 if an error occured.
+     */
+     QString getLastFieldFeedEntry(unsigned int fieldNumber);
+
+    /**
+     * @brief setWriteApiKey Sets the key for API write requests access (HTTP POST, UPDATE, DELETE etc.)
+     * @param readApiKey The read API key.
+     */
+    void setWriteApiKey(const QString &value);
+
+    /**
+     * @brief setReadApiKey Sets the key for API read requests (HTTP GET)
+     * @param readApiKey The read API key.
+     */
+    void setReadApiKey(const QString &readApiKey);
 
 private:
+    tsid_t id;
     ApiManager &manager;
-    const QString apiKey;
-    QString updatePath;
+    QString writeApiKey;
+    QString readApiKey;
 
     /// Checks if the field id is within the accepted range.
     bool checkFieldId(unsigned int fieldId) const;

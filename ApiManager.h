@@ -5,6 +5,7 @@
 #include <QUrlQuery>
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
+#include <QEventLoop>
 
 namespace ThingSpeak {
 
@@ -22,12 +23,20 @@ public:
     ApiManager(const QUrl &apiUrl = apiUrlDefault);
 
     /**
-     * @brief Synchronously sends a HTTP post request.
+     * @brief Synchronously sends a HTTP POST request.
      * @param path The path that is append to the api url.
      * @param query The query to send as HTTP post request.
      * @return The network reply.
      */
     QNetworkReply* sendPostRequestSync(const QString &path, const QUrlQuery &query);
+
+    /**
+     * @brief Synchronously sends a HTTP GET request.
+     * @param path The path that is append to the api url.
+     * @param query The query to send as HTTP post request.
+     * @return The network reply.
+     */
+    QNetworkReply* sendGetRequestSync(const QString &path, const QUrlQuery &query);
 
     /**
      * @brief The time in seconds to wait between two API requests.
@@ -42,9 +51,19 @@ public:
     void setTimeBetweenRequestsSec(unsigned int value);
 
 private:
+    /// Base URL of the API requests. Query paths gets added
     QUrl apiUrl;
+
+    /// Network manager to handle requests.
     QNetworkAccessManager mgr;
+
+    /// EventLoop to synchronize network requests
+    QEventLoop syncEventLoop;
+
+    /// Last api access time
     QDateTime lastRequest;
+
+    /// Timeout between two API queries
     unsigned int timeBetweenRequestsSec = 15;
 
     /// Returns the request url by appending the path to the api url.
@@ -57,7 +76,7 @@ private:
     quint64 getWaitTimeSec();
 
     /// Waits for the next request
-    void waitForRequest();
+    void waitForTimeout();
 };
 
 }

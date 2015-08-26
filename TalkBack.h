@@ -14,6 +14,12 @@ public:
 
     tsid_t addCommand(const QString &commandString, quint64 position = 0);
 
+    /**
+     * @brief executeNextCommand Executes the next TalkBack command in the queue.
+     * @return Returns the command string.
+     */
+    QString executeNextCommand();
+
 private:
     ApiManager &manager;
     const tsid_t id;

@@ -5,12 +5,13 @@
 
 #include "Channel.h"
 
+using namespace std;
 using namespace ThingSpeak;
 
-static const QString updatePathDefault = "/update";
+Channel::Channel(ApiManager &manager, tsid_t id) : id(id), manager(manager)
+{
 
-Channel::Channel(ApiManager &manager, QString apiKey): manager(manager), apiKey(apiKey), updatePath(updatePathDefault)
-{ };
+}
 
 bool Channel::checkFieldId(unsigned int fieldId) const
 {
@@ -20,23 +21,52 @@ bool Channel::checkFieldId(unsigned int fieldId) const
     return false;
 }
 
-tsid_t Channel::postField(unsigned int fieldId, const QString &fieldValue)
+tsid_t Channel::updateChannelFieldFeed(unsigned int fieldId, const QString &fieldValue)
 {
     if (!checkFieldId(fieldId))
         return kInvalidId;
 
     // Create query
     QUrlQuery query;
-    query.addQueryItem("api_key", apiKey);
+    query.addQueryItem("api_key", writeApiKey);
     query.addQueryItem(QString("field%1").arg(fieldId), fieldValue);
 
-    // Send request and parse the reply
-    QNetworkReply *reply = manager.sendPostRequestSync(updatePath, query);
-    tsid_t retVal = parseReplyForID(reply);
-    delete reply;
+    // Create path
+    QString path = "/update";
 
-    return retVal;
+    // Send request and parse the reply
+    unique_ptr<QNetworkReply> reply(manager.sendPostRequestSync(path, query));
+
+    return parseReplyForID(reply.get());
 }
 
+QString Channel::getLastFieldFeedEntry(unsigned int fieldId)
+{
+    if (!checkFieldId(fieldId))
+        return "";
+
+    // Create query
+    QUrlQuery query;
+    if (readApiKey.length())
+        query.addQueryItem("api_key", readApiKey);
+
+    // Create path
+    QString path = QString("/channels/%1/fields/%2/last").arg(id).arg(fieldId);
+
+    // Send request and parse the reply
+    unique_ptr<QNetworkReply> reply(manager.sendGetRequestSync(path, query));
+
+    return parseReplyForString(reply.get());
+}
+
+void Channel::setWriteApiKey(const QString &value)
+{
+    writeApiKey = value;
+}
+
+void Channel::setReadApiKey(const QString &value)
+{
+    readApiKey = value;
+}
 
 

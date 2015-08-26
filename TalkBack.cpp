@@ -4,8 +4,8 @@
 
 #include "TalkBack.h"
 
+using namespace std;
 using namespace ThingSpeak;
-static const QString talkbackCommandPath = "/talkbacks/%1/commands";
 
 TalkBack::TalkBack(ApiManager &manager, tsid_t id, const QString &apiKey): manager(manager), id(id), apiKey(apiKey)
 {
@@ -13,7 +13,10 @@ TalkBack::TalkBack(ApiManager &manager, tsid_t id, const QString &apiKey): manag
 
 tsid_t TalkBack::addCommand(const QString &commandString, quint64 position)
 {
-    QString positionString = position != 0 ? QString::number(position) : "";
+    // If the position is given, convert it to a string otherwise left empty.
+    QString positionString;
+    if (position != 0)
+        positionString = QString::number(position);
 
     // Create query
     QUrlQuery query;
@@ -22,11 +25,22 @@ tsid_t TalkBack::addCommand(const QString &commandString, quint64 position)
     query.addQueryItem("position", positionString);
 
     // Send request and parse the reply
-    QString path = talkbackCommandPath.arg(QString::number(id));;
-    QNetworkReply *reply = manager.sendPostRequestSync(path, query);
-    id_t retVal = parseReplyForID(reply);
-    delete reply;
+    QString path = QString("/talkbacks/%1/commands").arg(id);
+    unique_ptr<QNetworkReply> reply(manager.sendPostRequestSync(path, query));
 
-    return retVal;
+    return parseReplyForID(reply.get());
+}
+
+QString TalkBack::executeNextCommand()
+{
+    // Create query
+    QUrlQuery query;
+    query.addQueryItem("api_key", apiKey);
+
+    // Send request and return reply
+    QString path = QString("/talkbacks/%1/commands/execute").arg(id);
+    unique_ptr<QNetworkReply> reply (manager.sendGetRequestSync(path, query));
+
+    return parseReplyForString(reply.get());
 }
 
