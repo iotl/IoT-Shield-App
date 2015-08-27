@@ -7,7 +7,8 @@ SOURCES += main.cpp \
     TalkBack.cpp \
     Channel.cpp \
     ApiManager.cpp \
-    ApiCommon.cpp
+    ApiCommon.cpp \
+    QmlModel.cpp
 
 RESOURCES += qml.qrc
 
@@ -21,5 +22,6 @@ HEADERS += \
     TalkBack.h \
     Channel.h \
     ApiManager.h \
-    ApiCommon.h
+    ApiCommon.h \
+    QmlModel.h
 

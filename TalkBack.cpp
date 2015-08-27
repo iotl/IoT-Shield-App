@@ -1,6 +1,7 @@
 #include <QUrl>
 #include <QNetworkReply>
 #include <QDebug>
+#include <memory>
 
 #include "TalkBack.h"
 

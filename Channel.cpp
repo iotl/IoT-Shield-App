@@ -2,6 +2,7 @@
 #include <QUrl>
 #include <QUrlQuery>
 #include <QRegularExpression>
+#include <memory>
 
 #include "Channel.h"
 

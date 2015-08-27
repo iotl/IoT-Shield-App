@@ -6,6 +6,7 @@
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
 #include <QEventLoop>
+#include <functional>
 
 namespace ThingSpeak {
 

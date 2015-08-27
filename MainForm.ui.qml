@@ -32,12 +32,6 @@ Rectangle {
             text: qsTr("LED_3")
         }
 
-        ComboBox {
-            id: comboBox1
-            x: 93
-            y: 19
-        }
-
         Text {
             id: ldr
             x: 101
@@ -63,6 +57,12 @@ Rectangle {
             x: 101
             y: 167
             text: qsTr("Buzzer")
+        }
+
+        ComboBox {
+            id: seg7
+            x: 63
+            y: 19
         }
     }
 }
