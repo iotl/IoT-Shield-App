@@ -3,15 +3,10 @@ import QtQuick.Window 2.2
 
 Window {
     visible: true
-
-    //MainForm {
-    //    anchors.fill: parent
-    //    mouseArea.onClicked: {
-    //        // Qt.quit();
-    //    }
-    //}
-
-
+    id: screen
+    width: 400
+    height: 600
+    //property alias tempLabel: page.tempText
     Connections {
         target: modelHandler
         onTestSignal: {
@@ -19,11 +14,13 @@ Window {
         }
         onUpdateTemp: {
             console.log("I sould now update my temperature-label..")
+            page.tempText = temp
         }
     }
 
     View {
-        anchors.fill: parent
+        id: page
+
     }
 }
 

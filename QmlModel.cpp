@@ -8,7 +8,7 @@ QmlModel::QmlModel( Channel &channel, QObject *parent) : channel(channel), QObje
 void QmlModel::test(QString message)
 {
     qDebug() << QString("Called Slot wit message %1").arg(message);
-    this->testSignal("Here take this!");
+    this->updateTemp("Here take this!");
 }
 
 void QmlModel::switchLED(QString ledNum) {//TODO: check if box is checked?!

@@ -3,12 +3,14 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.4
 
 ScrollView {
-    id: page
-    
+    id:view
     horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
-    
+    anchors.fill: parent
+    property alias tempText: temperature.text
+
     Item {
         id: content
+        //anchors.fill: parent
 
         GridLayout {
             id: grid
@@ -56,6 +58,7 @@ ScrollView {
             }
 
             GroupBox {
+                id: temp
                 title: "Temperatursensor"
                 Layout.fillWidth: true
                 Layout.columnSpan: grid.columns
@@ -74,11 +77,11 @@ ScrollView {
                     anchors.fill: parent
                     Button {
                         text: "Button 1"
-                        onClicked: modelHandler.cppSlot("Button 1 clicked")
+                        onClicked: modelHandler.test("Button 1 clicked")
                     }
                     Button {
                         text: "Button 2"
-                        onClicked: modelHandler.cppSlot("Button 2 clicked")
+                        onClicked: modelHandler.test("Button 2 clicked")
                     }
                 }
             }
