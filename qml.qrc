@@ -2,5 +2,14 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>View.qml</file>
+        <file>UI.js</file>
+        <file>LED.qml</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="7segment">images/7-segment display.svg</file>
+        <file alias="button">images/basic_pbutton.svg</file>
+        <file alias="greenLED">images/LED-5mm-green.svg</file>
+        <file alias="redLED">images/LED-5mm-red.svg</file>
+        <file alias="yellowLED">images/LED-5mm-yellow.svg</file>
     </qresource>
 </RCC>

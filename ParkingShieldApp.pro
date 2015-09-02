@@ -1,7 +1,7 @@
 TEMPLATE = app
 
-QT += qml quick
-CONFIG += c++11
+QT += qml widgets quick
+#CONFIG += c++11
 QMAKE_CXXFLAGS += -std=c++11
 
 
@@ -26,4 +26,13 @@ HEADERS += \
     ApiManager.h \
     ApiCommon.h \
     QmlModel.h
+
+DISTFILES += \
+    ../android/AndroidManifest.xml \
+    ../android/gradle/wrapper/gradle-wrapper.jar \
+    ../android/gradlew \
+    ../android/res/values/libs.xml \
+    ../android/build.gradle \
+    ../android/gradle/wrapper/gradle-wrapper.properties \
+    ../android/gradlew.bat
 

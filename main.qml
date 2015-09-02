@@ -1,11 +1,11 @@
 import QtQuick 2.5
-import QtQuick.Window 2.2
+import QtQuick.Controls 1.4
 
-Window {
+ApplicationWindow {
     visible: true
-    id: screen
     width: 400
     height: 600
+
     //property alias tempLabel: page.tempText
     Connections {
         target: modelHandler
@@ -14,12 +14,12 @@ Window {
         }
         onUpdateTemp: {
             console.log("I sould now update my temperature-label..")
-            page.tempText = temp
+            screen.tempText = temp
         }
     }
 
     View {
-        id: page
+        id: screen
 
     }
 }
