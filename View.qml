@@ -1,86 +1,76 @@
 import QtQuick 2.5
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.4
+
 import "UI.js" as UI
 
 Rectangle {
-    //horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
     anchors.fill: parent
 
-    //property alias tempText: temperature.text
+    property alias tempText: temperature.text
+    property alias eventListModel: eventList.model
 
-    ColumnLayout {
+    Column {
         anchors.margins: UI.margins
-        id: grid
-        height: implicitHeight
-        width: parent.width
+        anchors.fill: parent
 
-
+        //inputs
         GroupBox {
-            title: "LEDs"
-            Layout.fillWidth: true
+            title: "Click Me!"
+            anchors.right: parent.right
+            anchors.left: parent.left
+
             anchors.margins: UI.margins
-            //Layout.columnSpan: grid.columns
-            LED {
 
-            }
+            RowLayout {
+                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: UI.switchesSpacing
 
-//            RowLayout {
-//                anchors.fill: parent
-//                CheckBox {
-//                    text: "LED 1"
-//                    onClicked: modelHandler.switchLED("1")
-//                }
-//                CheckBox {
-//                    text: "LED 2"
-//                    onClicked: modelHandler.switchLED("2")
-//                }
-//                CheckBox {
-//                    text: "LED 3"
-//                    onClicked: modelHandler.switchLED("2")
-//                }
-//            }
-        }
-
-        GroupBox {
-            title: "7-Segment Anzeige"
-            Layout.fillWidth: true
-            //Layout.columnSpan: grid.columns
-            ComboBox {
-                id: segment7
-                anchors.fill: parent
-                editable: false
-                model: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-                onActivated: modelHandler.setSEGMENT(index)
+                LED { //redLED
+                    id: led1
+                    idx: 1
+                    width: UI.switchesWidth
+                }
+                LED {
+                    id: led2
+                    idx: 2
+                    source: "images/yellowLED"
+                    width: UI.switchesWidth
+                }
+                LED {
+                    id: led3
+                    idx: 3
+                    source: "images/greenLED"
+                    width: UI.switchesWidth
+                }
+                SEGMENT {
+                    id: segment
+                    width: 1.5 * UI.switchesWidth
+                }
             }
         }
-
         GroupBox {
-            id: temp
             title: "Temperatursensor"
-            Layout.fillWidth: true
-            //Layout.columnSpan: grid.columns
+
+            anchors.right: parent.right
+            anchors.left: parent.left
+
             Label {
                 id: temperature
+
                 anchors.fill: parent
                 text: "--"
             }
         }
+        GroupBox {
+            id: events
+            title: "Events"
 
-        GroupBox {//for what?
-            title: "Buttons"
-            Layout.fillWidth: true
-            //Layout.columnSpan: grid.columns
-            RowLayout {
-                anchors.fill: parent
-                Button {
-                    text: "Button 1"
-                    onClicked: modelHandler.test("Button 1 clicked")
-                }
-                Button {
-                    text: "Button 2"
-                    onClicked: modelHandler.test("Button 2 clicked")
-                }
+            anchors.right: parent.right
+            anchors.left: parent.left
+
+            EventList{
+                id: eventList
             }
         }
     }

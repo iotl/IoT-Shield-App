@@ -2,37 +2,43 @@ import QtQuick 2.5
 
 
 Image {
-    id: testLED
+    id: defaultLED
     source: "images/redLED"
+    property int idx
 
-    //crop the legs!
-    height: 40
-    horizontalAlignment: Image.AlignLeft
-    verticalAlignment: Image.AlignTop
-    fillMode: Image.PreserveAspectCrop
-    clip: true
+    //scale the SVG properly
+    sourceSize.width: this.width
 
-    opacity: 0.2
-
+    //initial state
+    state: "Off"
 
     MouseArea {
         anchors.fill: parent
-        onClicked: (testLED.state == "On")? testLED.state = "Off" : testLED.state = "On"
+        onClicked: {
+            if (defaultLED.state == "On") {
+                defaultLED.state = "Off"
+                modelHandler.switchLED(idx, "Off")
+            }
+            else {
 
+                defaultLED.state = "On"
+                modelHandler.switchLED(idx, "On")
+            }
+        }
     }
 
     states: [
         State {
             name: "On"
             PropertyChanges {
-                target: testLED
+                target: defaultLED
                 opacity: 1
             }
         },
         State {
             name: "Off"
             PropertyChanges {
-                target: testLED
+                target: defaultLED
                 opacity: 0.2
             }
         }

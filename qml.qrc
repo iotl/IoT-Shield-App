@@ -4,6 +4,8 @@
         <file>View.qml</file>
         <file>UI.js</file>
         <file>LED.qml</file>
+        <file>SEGMENT.qml</file>
+        <file>EventList.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="7segment">images/7-segment display.svg</file>
@@ -11,5 +13,16 @@
         <file alias="greenLED">images/LED-5mm-green.svg</file>
         <file alias="redLED">images/LED-5mm-red.svg</file>
         <file alias="yellowLED">images/LED-5mm-yellow.svg</file>
+        <file alias="7segment1">images/7-segment display 1.svg</file>
+        <file alias="7segment2">images/7-segment display 2.svg</file>
+        <file alias="7segment3">images/7-segment display 3.svg</file>
+        <file alias="7segment-">images/7-segment display -.svg</file>
+        <file alias="7segment0">images/7-segment display 0.svg</file>
+        <file alias="7segment4">images/7-segment display 4.svg</file>
+        <file alias="7segment5">images/7-segment display 5.svg</file>
+        <file alias="7segment6">images/7-segment display 6.svg</file>
+        <file alias="7segment7">images/7-segment display 7.svg</file>
+        <file alias="7segment8">images/7-segment display 8.svg</file>
+        <file alias="7segment9">images/7-segment display 9.svg</file>
     </qresource>
 </RCC>

@@ -7,6 +7,7 @@
 #define SEGMENT 4
 #define S1 5
 #define S2 6
+#define DEBUG 0
 
 
 #include <QObject>
@@ -17,23 +18,35 @@ using namespace std;
 
 class QmlModel : public QObject
 {
-    Q_OBJECT
+  Q_OBJECT
 public:
-    explicit QmlModel( Channel &channel, QObject *parent = 0 );
+  explicit QmlModel( Channel &channel, QObject *parent = 0 );
+  //test signals
+  void test(QString message);
 
 signals:
-    //can be sent from here, have to be handled under Connections (main.qml)
-    void testSignal(QString message);
-    void updateTemp(QString temp);
+  //can be sent from here, have to be handled under Connections (main.qml)
+  /**
+     * @brief updates the temperature label in the gui
+     * @param temp content string for label update
+     */
+  void updateTemp(QString temp);
+
+  /**
+     * @brief newEvent puts a new item in a event list, which contains an
+     *        info icon an the message
+     * @param message
+     * @param eventType "buttonPressed", for now
+     */
+  void newEvent(QString message, QString eventType = 0 );
 
 public slots:
-    //sent from GUI, handled here
-    void test(QString message);
-    void switchLED(QString num);
-    void setSEGMENT(QString num);
+  //sent from GUI, handled here
+  void switchLED(int idx, QString toState);
+  void setSEGMENT(QString toNumber);
 
 private:
-    Channel &channel;
+  Channel &channel;
 };
 
 #endif // QMLMODEL_H
