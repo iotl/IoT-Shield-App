@@ -8,6 +8,35 @@
 namespace ThingSpeak
 {
 
+class FeedEntry
+{
+public:
+    /**
+     * @brief Calculate the age of this entry.
+     * @return Number of seconds since this entry was created.
+     */
+    uint64_t getAge() const;
+
+    /**
+     * @brief Access a specific field of the entry.
+     * @param fieldNumber The number of the field (1 to 8).
+     * @throw std::out_of_range if the field index is out of range
+     * @return A reference to the requested field which is valid as long as
+     *         the entry is.
+     */
+    const QString& getField(uint8_t fieldNumber) const;
+
+    friend class Channel;
+
+private:
+    QDateTime created;
+    QString fields[8];
+
+    FeedEntry() = default;
+};
+
+QDebug operator<<(QDebug debug, const FeedEntry& entry);
+
 class Channel
 {
 public:
@@ -33,6 +62,14 @@ public:
      * @return Returns the field id of the request or 0 if an error occured.
      */
      QString getLastFieldFeedEntry(unsigned int fieldNumber);
+
+    /**
+     * @brief Get the last entry of the channel
+     * @note Read API key is required for private channels. @see setReadApiKey();
+     * @throw std::runtime_error if the request or json parsing fails
+     * @return The last entry in the channel as a FeedEntry object
+     */
+    FeedEntry getLastFeedEntry();
 
     /**
      * @brief setWriteApiKey Sets the key for API write requests access (HTTP POST, UPDATE, DELETE etc.)
