@@ -12,6 +12,7 @@
 
 #include <QObject>
 #include "Channel.h"
+#include "TalkBack.h"
 
 using namespace ThingSpeak;
 using namespace std;
@@ -20,9 +21,7 @@ class QmlModel : public QObject
 {
   Q_OBJECT
 public:
-  explicit QmlModel( Channel &channel, QObject *parent = 0 );
-  //test signals
-  void test(QString message);
+  explicit QmlModel( Channel &channel, TalkBack &talkback, QObject *parent = 0 );
 
 signals:
   //can be sent from here, have to be handled under Connections (main.qml)
@@ -47,6 +46,7 @@ public slots:
 
 private:
   Channel &channel;
+  TalkBack &talkback;
 };
 
 #endif // QMLMODEL_H
