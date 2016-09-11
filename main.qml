@@ -6,18 +6,16 @@ import "UI.js" as UI
 ApplicationWindow {
     visible: true
     width: 400
-    height: 600
+    height: 400
 
     //signal bindings + model logic on js/qml side
     Connections {
         target: modelHandler
         onUpdateTemp: {
-            console.log("I sould now update my temperature-label..")
             screen.tempText = temp
         }
         onNewEvent: {  //(QString message, QString eventType = 0 )
-            console.log(message + ", " + eventType)
-            screen.eventListModel.append({"iconSource": UI.getImagePathFromType("buttonPressed"), "eventText": "test new"})
+            screen.eventListModel.insert(0, {"iconSource": UI.getImagePathFromType("buttonPressed"), "eventText": message})
         }
     }
 
