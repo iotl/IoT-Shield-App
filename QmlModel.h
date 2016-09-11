@@ -44,6 +44,8 @@ public slots:
   void switchLED(int idx, QString toState);
   void setSEGMENT(QString toNumber);
 
+  void update();
+
 private:
   Channel &channel;
   TalkBack &talkback;

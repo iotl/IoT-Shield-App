@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     ApiManager manager;
+    manager.setTimeBetweenRequestsSec(2);
 
     Channel channel(manager);
     channel.setId(666);
