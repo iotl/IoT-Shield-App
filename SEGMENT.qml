@@ -18,11 +18,6 @@ Image {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: {
-            (numberSet == 9)? numberSet = 0 : numberSet++
-            modelHandler.setSEGMENT(numberSet)
-        }
-
     }
 
     states: [

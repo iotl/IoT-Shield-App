@@ -6,6 +6,7 @@
         <file>LED.qml</file>
         <file>SEGMENT.qml</file>
         <file>EventList.qml</file>
+        <file>BUTTON.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="7segment">images/7-segment display.svg</file>

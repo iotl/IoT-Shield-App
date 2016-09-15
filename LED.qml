@@ -14,17 +14,6 @@ Image {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: {
-            if (defaultLED.state == "On") {
-                defaultLED.state = "Off"
-                modelHandler.switchLED(idx, "Off")
-            }
-            else {
-
-                defaultLED.state = "On"
-                modelHandler.switchLED(idx, "On")
-            }
-        }
     }
 
     states: [

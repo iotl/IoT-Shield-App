@@ -9,6 +9,11 @@ Rectangle {
 
     property alias tempText: temperature.text
     property alias eventListModel: eventList.model
+    property alias led1State: led1.state
+    property alias led2State: led2.state
+    property alias led3State: led3.state
+    property alias segmentNumber: segment.numberSet
+    property alias segmentState: segment.state
 
     Column {
         anchors.margins: UI.margins
@@ -16,11 +21,9 @@ Rectangle {
 
         //inputs
         GroupBox {
-            title: "Click Me!"
+            title: ""
             anchors.right: parent.right
             anchors.left: parent.left
-
-            anchors.margins: UI.margins
 
             RowLayout {
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -46,6 +49,16 @@ Rectangle {
                 SEGMENT {
                     id: segment
                     width: 1.5 * UI.switchesWidth
+                }
+                BUTTON {
+                    id: button2
+                    idx: 2
+                    width: UI.switchesWidth
+                }
+                BUTTON {
+                    id: button1
+                    idx: 1
+                    width: UI.switchesWidth
                 }
             }
         }

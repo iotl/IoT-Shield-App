@@ -6,42 +6,27 @@ import "UI.js" as UI
 ScrollView {
     property alias model: listView.model
     anchors.fill: parent
-    ListView { //TODO: automattically scroll downwards on ne items
+    ListView {
         id: listView
         height: 300
         model: ListModel {
             id: eventList
-//            ListElement {
-//                iconSource: "images/button"
-//                eventText: "test new"
-//            }
         }
 
         delegate: Item {
-            height: UI.itemIconWidth
+            height: 15
             width: parent.width
 
-            Image {
-                id: elemnetIcon
-                anchors.verticalCenter: parent.verticalCenter
-                width: .5 * parent.height
-                height: .5 * parent.height
-                anchors.left: parent.left
-
-                source: iconSource
-            }
-            Text { //FIXME
+            Text {
                 id: elemnetText
-                font.pixelSize: UI.fontPixelSize
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.left: elemnetIcon.right
+                anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: UI.margins
                 anchors.rightMargin: UI.margins
-                elide: Text.ElideLeft   //doesn't work...
+                elide: Text.ElideLeft
                 text: eventText
             }
-
         }
     }
 }

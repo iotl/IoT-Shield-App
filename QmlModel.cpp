@@ -7,18 +7,18 @@ QmlModel::QmlModel( Channel &channel, TalkBack &talkback, QObject *parent) : QOb
     update();
 }
 
-void QmlModel::switchLED(int, QString) {
-    qDebug() << QString("Send 'start' to talkback");
-    newEvent("Send 'start' to talkback");
+void QmlModel::onButtonPressed(int idx) {
+    if(idx == 1) {
+        qDebug() << QString("Send 'pay' to talkback");
+        newEvent("Send 'pay' to talkback");
 
-    talkback.addCommand("start");
-}
+        talkback.addCommand("pay");
+    } else {
+        qDebug() << QString("Send 'start' to talkback");
+        newEvent("Send 'start' to talkback");
 
-void QmlModel::setSEGMENT(QString){
-    qDebug() << QString("Send 'pay' to talkback");
-    newEvent("Send 'pay' to talkback");
-
-    talkback.addCommand("pay");
+        talkback.addCommand("start");
+    }
 }
 
 void QmlModel::update() {
