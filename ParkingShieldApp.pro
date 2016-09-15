@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     Channel.cpp \
     ApiManager.cpp \
     ApiCommon.cpp \
-    QmlModel.cpp
+    QmlModel.cpp \
+    Parkinglot.cpp
 
 RESOURCES += qml.qrc
 
@@ -25,7 +26,8 @@ HEADERS += \
     Channel.h \
     ApiManager.h \
     ApiCommon.h \
-    QmlModel.h
+    QmlModel.h \
+    Parkinglot.h
 
 DISTFILES += \
     ../android/AndroidManifest.xml \

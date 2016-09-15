@@ -20,7 +20,6 @@ int main(int argc, char *argv[])
 
     Channel channel(manager);
     channel.setId(666);
-    channel.setWriteApiKey("AAAAAAAAAAAAAAAA");
     channel.setReadApiKey("AAAAAAAAAAAAAAAA");
 
     TalkBack talkback(manager);

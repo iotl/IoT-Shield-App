@@ -7,6 +7,7 @@
 #include <QObject>
 #include "Channel.h"
 #include "TalkBack.h"
+#include "Parkinglot.h"
 
 using namespace ThingSpeak;
 using namespace std;
@@ -39,10 +40,14 @@ public slots:
   void onButtonPressed(int idx);
 
   void update();
+  void simulateLot();
 
 private:
   Channel &channel;
   TalkBack &talkback;
+
+  Parkinglot parkingLot;
+  FeedEntry lastEntry;
 };
 
 #endif // QMLMODEL_H

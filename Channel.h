@@ -31,8 +31,6 @@ public:
 private:
     QDateTime created;
     QString fields[8];
-
-    FeedEntry() = default;
 };
 
 QDebug operator<<(QDebug debug, const FeedEntry& entry);
